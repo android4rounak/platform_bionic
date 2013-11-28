@@ -1,5 +1,6 @@
 LOCAL_PATH:= $(call my-dir)
 
+ifeq ($(TARGET_CPU_ABI), armeabi-v7a)
 ############################################
 include $(CLEAR_VARS)
 LOCAL_MODULE := zoneinfo.dat
@@ -29,7 +30,40 @@ LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT)/usr/share/zoneinfo
 include $(BUILD_PREBUILT)
+endif
 
+ifeq ($(TARGET_CPU_ABI), armeabi)
+############################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := zoneinfo.dat
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+LOCAL_SRC_FILES := zoneinfo-v5te.dat
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT)/usr/share/zoneinfo
+include $(BUILD_PREBUILT)
+
+############################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := zoneinfo.idx
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+LOCAL_SRC_FILES := zoneinfo-v5te.idx
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT)/usr/share/zoneinfo
+include $(BUILD_PREBUILT)
+
+############################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := zoneinfo.version
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+LOCAL_SRC_FILES := zoneinfo-v5te.version
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT)/usr/share/zoneinfo
+include $(BUILD_PREBUILT)
+
+endif
 
 # The host build doesn't use bionic, but it does use bionic's zoneinfo data
 ifeq ($(WITH_HOST_DALVIK),true)
